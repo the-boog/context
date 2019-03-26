@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Route, Switch} from 'react-router-dom'
+import UserInfo from './components/UserInfo'
+import NoMatch from './components/NoMatch';
+import NavBar from './components/NavBar'
+import Home from './components/Home'
+import Hobby from './components/Hobby'
+import HobbyProvider from './providers/HobbyProvider';
+
 
 class App extends Component {
+ 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <>
+      <NavBar />
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/user/info" component={UserInfo} />
+        <HobbyProvider>
+          <Route exact path="/user/hobbies" component={Hobby} />
+        </HobbyProvider>
+        <Route component={NoMatch}/>
+      </Switch>
+      </>
     );
   }
 }
